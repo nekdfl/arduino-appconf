@@ -72,5 +72,5 @@
 .vscode/ipch
 
 #lib
-./lib
+lib
 
