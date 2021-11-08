@@ -1,28 +1,23 @@
 {
   "name":"appconf",
-  "description":"json settings storage in file for ESP8266 arduino framework",
   "keywords":"config, settings",
-  "authors":
-  {
-    "name": "Garkushenko Nick",
-    "maintainer": true
-  },
+  "description":"json settings storage in file for ESP8266 arduino framework",
   "repository":
   {
     "type": "git",
     "url": "https://github.com/nekdfl/arduino-appconf.git"
-
   },
   "version": "0.1.0",
+  "authors":
+  {
+    "name": "Garkushenko Nick",
+    "url": "https://github.com/nekdfl"
+  },
   "license": "LGPL-3.0",
   "frameworks": "arduino",
   "platforms": "espressif8266",
-
-  "dependencies": [
-    {
-      "owner": "bblanchon",
-      "name": "ArduinoJson",
-      "platforms": "espressif8266"
-    }
-  ]
+  "dependencies": {
+    "painlessmesh/arduinoUnity":"^0.0.2",
+	  "bblanchon/ArduinoJson":"^6.18.5"
+  }
 }
