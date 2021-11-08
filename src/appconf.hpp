@@ -23,10 +23,15 @@ class AppConf
 protected:
     /* data */
     String m_rootdir;
+    unsigned int m_dynamicbuffersize;
 
 public:
     AppConf(const String &a_rootdir = "/config");
     ~AppConf();
+
+    void setDynamicBufferSize(unsigned int a_readbuffersize);
+
+    unsigned int getDynamicBufferSize();
 
     void setConfigRootDir(const String &a_rootdir);
 

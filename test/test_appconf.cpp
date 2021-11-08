@@ -130,6 +130,20 @@ void test_getchildlist()
     TEST_ASSERT_EQUAL(true, pass_test);
 }
 
+void test_getdynamicbuffersize()
+{
+    const unsigned int default_buffer_size = 2048;
+    auto buffersize = m_appconf.getDynamicBufferSize();
+    TEST_ASSERT_EQUAL(default_buffer_size, buffersize);
+}
+
+void test_setdynamicbuffersize()
+{
+    const unsigned int new_buffer_size = 1024;
+    m_appconf.setDynamicBufferSize(new_buffer_size);
+    TEST_ASSERT_EQUAL(new_buffer_size, m_appconf.getDynamicBufferSize());
+}
+
 void dummy_test()
 {
     TEST_ASSERT_EQUAL(0, 0);
@@ -146,6 +160,8 @@ void test_appconf()
     RUN_TEST(test_removeValue);
     RUN_TEST(test_setrootdir);
     RUN_TEST(test_getchildlist);
+    RUN_TEST(test_getdynamicbuffersize);
+    RUN_TEST(test_setdynamicbuffersize);
     //last test not display. Add dummy test.
     RUN_TEST(dummy_test);
 }

@@ -2,12 +2,23 @@
 
 AppConf::AppConf(const String &a_rootdir) : m_rootdir(a_rootdir)
 {
+    m_dynamicbuffersize = 2048;
     initRealRootDirPath();
     createRootDirIfNotExists();
 }
 
 AppConf::~AppConf()
 {
+}
+
+void AppConf::setDynamicBufferSize(unsigned int a_buffersize)
+{
+    m_dynamicbuffersize = a_buffersize;
+}
+
+unsigned int AppConf::getDynamicBufferSize()
+{
+    return m_dynamicbuffersize;
 }
 
 void AppConf::setConfigRootDir(const String &a_rootdir)
@@ -51,7 +62,7 @@ void AppConf::deleteAllConfigFiles()
 String AppConf::getLPValue(const String &a_filename, const String &a_valuepath, const String &a_defaultvalue)
 {
     auto v_fullfilepath = makeFullFilePath(a_filename);
-    DynamicJsonDocument doc(2048);
+    DynamicJsonDocument doc(m_dynamicbuffersize);
     readJsonDocFromFile(v_fullfilepath, doc);
     std::list<String> pathlist = splitPath(a_valuepath, "/");
 
@@ -90,7 +101,7 @@ String AppConf::getLPValue(const String &a_filename, const String &a_valuepath, 
 void AppConf::setLPValue(const String &a_filename, const String &a_valuepath, const String &a_value)
 {
     auto v_fullfilepath = makeFullFilePath(a_filename);
-    DynamicJsonDocument doc(2048);
+    DynamicJsonDocument doc(m_dynamicbuffersize);
     readJsonDocFromFile(v_fullfilepath, doc);
     std::list<String> pathlist = splitPath(a_valuepath, "/");
     String key;
@@ -118,7 +129,7 @@ void AppConf::setLPValue(const String &a_filename, const String &a_valuepath, co
 void AppConf::removeLPValue(const String &a_filename, const String &a_valuepath)
 {
     auto v_fullfilepath = makeFullFilePath(a_filename);
-    DynamicJsonDocument doc(2048);
+    DynamicJsonDocument doc(m_dynamicbuffersize);
     readJsonDocFromFile(v_fullfilepath, doc);
     String key;
     std::list<String> pathlist = splitPath(a_valuepath, "/");
@@ -148,7 +159,7 @@ std::list<String> AppConf::getLPChildList(const String &a_filename, const String
 {
     auto v_fullfilepath = makeFullFilePath(a_filename);
     std::list<String> reslist;
-    DynamicJsonDocument doc(2048);
+    DynamicJsonDocument doc(m_dynamicbuffersize);
     readJsonDocFromFile(v_fullfilepath, doc);
     std::list<String> pathlist = splitPath(a_valuepath, "/");
     JsonObject root = worlkLP(pathlist, doc);
