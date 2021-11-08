@@ -1,4 +1,5 @@
-# Description
+Description
+=======
 
 Every project I have is the same architecture and appconf is one of the components I use every time.
 This is an attempt at making a public library. If you have any ideas for improvement - you are welcome!
@@ -6,23 +7,22 @@ This is an attempt at making a public library. If you have any ideas for improve
 Examples of work can be found in the test folder.
 Important! Before using the class methods, you need to call the Littlefs.begin() method.
 
-## Example
+Example:
+=======
 
-> Start file system 
-> ```LittleFS.begin();```
+>     LittleFS.begin(); //start file system
+>     AppConf m_appconf = AppConf("/config"); //config must be stored in "/config " directory.
+>     String filename = "system.json"; // just name of file with or without extension
+>     m_appconf.createConfFile(filename); // create new config file (you can do it once at settings init)
+>     m_appconf.setLPValue(filename, "/system/devname", "testboard"); // set value. First argument use "path style" to settings. Last element - is your setting name (key). Second argument is value.
+>     auto boardname = m_appconf.getLPValue(filename, "/system/devname"); // read value from file
 
-> Config must be stored in "/config " directory
-> ```AppConf m_appconf = AppConf("/config");```
+Limitations:
+=======
 
-> Just name of file with or without extension
-> ```String filename = "system.json";```
+Inside of library used DynamicJsonDocument with size 2048 bytes. You can override this value by calling method
+>     m_appconf.setDynamicBufferSize(512); //where 512 is new size
+And get size my calling method
+>     auto buffersize  = m_appconf.getDynamicBufferSize()
 
-> Create new config file (you can do it once at settings init)
-> ```m_appconf.createConfFile(filename);```
 
->   Set value. First argument use "path style" to settings. 
-    Last element - is your setting name (key). Second argument is value.
-> ```m_appconf.setLPValue(filename, "/system/devname", "testboard");```
-
-> Read value from file
-> ```auto boardname = m_appconf.getLPValue(filename, "/system/devname");```
